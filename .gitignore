@@ -1,0 +1,15 @@
+# Firmware build output
+*.hex
+*.bin
+*.uf2
+
+# Junk files
+*.bak
+*.swp
+*~
+.DS_Store
+
+# clangd
+compile_commands.json
+.clangd/
+.cache/

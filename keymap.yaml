@@ -1,0 +1,191 @@
+draw_config:
+  footer_text: "Encoders: Vol / Page · Lower hue / sat · Raise val / spd · Adjust mode / media"
+layout: {qmk_keyboard: sofle_choc, layout_name: LAYOUT}
+layers:
+  QWERTY: ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '`', ESC, Q, W, E, R, T, Y, U, I, O, P, BSPC, TAB, A, S, D, F, G, H, J, K, L, ;, '''', LSFT, Z, X, C,
+    V, B, MUTE, MPLY, N, M, ',', ., /, RSFT, LGUI, LALT, LCTL, TL LOWR, SPC, ENT, TL UPPR, RCTL, RALT, RGUI]
+  COLEMAK: ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '`', ESC, Q, W, F, P, G, J, L, U, Y, ;, BSPC, TAB, A, R, S, T, D, H, N, E, I, O, '''', LSFT, Z, X, C,
+    V, B, MUTE, MPLY, K, M, ',', ., /, RSFT, LGUI, LALT, LCTL, TL LOWR, SPC, ENT, TL UPPR, RCTL, RALT, RGUI]
+  LOWER:
+  - {t: ▽, type: trans}
+  - F1
+  - F2
+  - F3
+  - F4
+  - F5
+  - F6
+  - F7
+  - F8
+  - F9
+  - F10
+  - F11
+  - '`'
+  - '1'
+  - '2'
+  - '3'
+  - '4'
+  - '5'
+  - '6'
+  - '7'
+  - '8'
+  - '9'
+  - '0'
+  - F12
+  - {t: ▽, type: trans}
+  - '!'
+  - '@'
+  - '#'
+  - $
+  - '%'
+  - ^
+  - '&'
+  - '*'
+  - (
+  - )
+  - '|'
+  - {t: ▽, type: trans}
+  - '='
+  - '-'
+  - +
+  - '{'
+  - '}'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '['
+  - ']'
+  - ;
+  - ':'
+  - \
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  RAISE:
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - INS
+  - PSCR
+  - APP
+  - ''
+  - ''
+  - PGUP
+  - PRVWD
+  - UP
+  - NXTWD
+  - Ctl+BSPC
+  - BSPC
+  - {t: ▽, type: trans}
+  - LALT
+  - LCTL
+  - LSFT
+  - ''
+  - CAPS
+  - PGDN
+  - LEFT
+  - DOWN
+  - RGHT
+  - DEL
+  - BSPC
+  - {t: ▽, type: trans}
+  - Ctl+Z
+  - Ctl+X
+  - Ctl+C
+  - Ctl+V
+  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ''
+  - LSTRT
+  - ''
+  - LEND
+  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  ADJUST:
+  - ''
+  - QWERTY
+  - COLEMAK
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - QK BOOT
+  - RM TOGG
+  - RM NEXT
+  - RM PREV
+  - ''
+  - EE CLR
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - CG TOGG
+  - RM HUEU
+  - RM SATU
+  - RM VALU
+  - RM SPDU
+  - ''
+  - ''
+  - VOLD
+  - MUTE
+  - VOLU
+  - ''
+  - ''
+  - ''
+  - RM HUED
+  - RM SATD
+  - RM VALD
+  - RM SPDD
+  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ''
+  - MPRV
+  - MPLY
+  - MNXT
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
