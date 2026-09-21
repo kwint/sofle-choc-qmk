@@ -14,23 +14,57 @@ The five layers from the build guide's default layout:
 
 | Layer | Reached by | Contents |
 |-------|-----------|----------|
-| QWERTY | default | letters, number row, `Mute` / `Play` on the encoder pushes |
+| QWERTY | default | letters, number row, `Mute` / `Play` on the encoder pushes, Caps Word on the right pinky |
 | COLEMAK | `Colmak` on Adjust | alternate base layout, remembered across reboots |
 | LOWER | left thumb | F1–F12, numbers, symbols, brackets |
 | RAISE | right thumb | arrows, Home/End, word-wise motion, Ins/PrtSc/Menu, clipboard |
 | ADJUST | LOWER + RAISE together | RGB controls, layout switch, Mac/Win swap, media, `QK_BOOT`, `EE_CLR` |
 
-Encoders, per layer:
-
-| Layer | Left encoder | Right encoder |
-|-------|-------------|---------------|
-| QWERTY / COLEMAK | volume | page up/down |
-| LOWER | RGB hue | RGB saturation |
-| RAISE | RGB brightness | RGB speed |
-| ADJUST | RGB mode | media prev/next |
-
 `MacWin` on the Adjust layer swaps Ctrl and GUI. The clipboard keys and word
 motions follow that swap automatically.
+
+## Encoders
+
+Both encoders are mapped per layer, so holding a thumb key changes what they
+do. Counter-clockwise is the first action listed, clockwise the second.
+
+| Layer | Left encoder | Right encoder |
+|-------|--------------|---------------|
+| QWERTY / COLEMAK | volume down / up | page down / up |
+| LOWER | RGB hue − / + | RGB saturation − / + |
+| RAISE | RGB brightness − / + | RGB speed − / + |
+| ADJUST | RGB mode previous / next | media previous / next track |
+
+Holding LOWER, RAISE or ADJUST therefore turns the two knobs into a full
+lighting console: hue and saturation, brightness and speed, then the effect
+itself — with the current values shown on the OLED while Adjust is held.
+
+The encoder shafts are wired as keys: **left pushes Mute, right pushes
+Play/Pause**. Those are set on the base layers and left transparent everywhere
+else, so they do the same thing on every layer.
+
+## Caps Word
+
+The right pinky (where right shift normally sits) is `CW_TOGG`. Tap it and the
+next word is capitalised — `MAX_BUFFER_SIZE` — and it switches itself off at
+the first space, or after five idle seconds. The OLED shows `WORD` while it is
+armed, in the same slot that shows `CAP` for caps lock.
+
+There is no right shift as a result; shifting is the left pinky. If you want
+it back, swap `CW_TOGG` for `KC_RSFT` on the two base layers and move Caps Word
+somewhere else — a spare Adjust key, or `BOTH_SHIFTS_TURNS_ON_CAPS_WORD` in
+`config.h` if you would rather chord both shifts for it.
+
+## Per-key RGB as a layer legend
+
+Hold LOWER, RAISE or ADJUST and the animation gives way to a legend: only the
+keys that actually do something on that layer light up, in a colour per layer —
+cyan for Lower, magenta for Raise, amber for Adjust. Keys that are transparent
+(they fall through to the base layer) and unused keys stay dark, so what you
+see is exactly what the layer changes. Useful with blank keycaps.
+
+The base layers are left alone, so your chosen animation still runs there, and
+`RM_TOGG` turns the legend off along with everything else.
 
 ## OLEDs
 
@@ -89,8 +123,11 @@ all 29 RGB matrix animations. This keymap disables all but five in `config.h`
 and lands at:
 
 ```
-24452/28672 (85%, 4220 bytes free)
+25092/28672 (87%, 3580 bytes free)
 ```
+
+For reference, the RGB layer legend plus Caps Word (with its OLED readout)
+together cost 640 bytes.
 
 Delete an `#undef ENABLE_RGB_MATRIX_*` line to get an animation back, or add
 features into the remaining 4 KB. The build prints the size every time.

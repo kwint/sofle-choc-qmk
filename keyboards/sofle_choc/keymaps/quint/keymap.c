@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
  * |------+------+------+------+------+------|  Mute |    | Play  |------+------+------+------+------+------|
- * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
+ * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |CapsWd|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | LGUI | LAlt | LCTL |LOWER | /Space  /       \Enter \  |RAISE | RCTL | RAlt | RGUI |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
   KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
   KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_MUTE,   KC_MPLY, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_MUTE,   KC_MPLY, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, CW_TOGG,
                     KC_LGUI, KC_LALT, KC_LCTL, TL_LOWR, KC_SPC,    KC_ENT,  TL_UPPR, KC_RCTL, KC_RALT, KC_RGUI
 ),
 
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | TAB  |   A  |   R  |   S  |   T  |   D  |-------.    ,-------|   H  |   N  |   E  |   I  |   O  |  '   |
  * |------+------+------+------+------+------|  Mute |    | Play  |------+------+------+------+------+------|
- * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   K  |   M  |   ,  |   .  |   /  |RShift|
+ * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   K  |   M  |   ,  |   .  |   /  |CapsWd|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | LGUI | LAlt | LCTL |LOWER | /Space  /       \Enter \  |RAISE | RCTL | RAlt | RGUI |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,
   KC_ESC,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                        KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
   KC_TAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                        KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_MUTE,   KC_MPLY, KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_MUTE,   KC_MPLY, KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, CW_TOGG,
                     KC_LGUI, KC_LALT, KC_LCTL, TL_LOWR, KC_SPC,    KC_ENT,  TL_UPPR, KC_RCTL, KC_RALT, KC_RGUI
 ),
 
@@ -156,6 +156,43 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 
+#ifdef RGB_MATRIX_ENABLE
+
+// Light only the keys that actually do something on the layer you are holding,
+// so blank keycaps get a legend. Keys left transparent (they fall through to
+// the base layer) and unused keys stay dark. The base layers are untouched, so
+// you keep whatever animation you picked.
+//
+// QMK only calls this while the matrix is on, so RM_TOGG kills the legend too.
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    uint8_t layer = get_highest_layer(layer_state);
+    uint8_t r, g, b;
+
+    switch (layer) {
+        case _LOWER:  r =   0; g =  90; b = 110; break;  // cyan
+        case _RAISE:  r = 110; g =   0; b =  90; break;  // magenta
+        case _ADJUST: r = 120; g =  60; b =   0; break;  // amber
+        default: return false;                           // base layer: hands off
+    }
+
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+            uint8_t index = g_led_config.matrix_co[row][col];
+            if (index == NO_LED || index < led_min || index >= led_max) {
+                continue;
+            }
+            if (keymap_key_to_keycode(layer, (keypos_t){col, row}) > KC_TRNS) {
+                rgb_matrix_set_color(index, r, g, b);
+            } else {
+                rgb_matrix_set_color(index, 0, 0, 0);
+            }
+        }
+    }
+    return false;
+}
+
+#endif
+
 #ifdef OLED_ENABLE
 
 // The OLEDs are mounted with their long axis pointing away from you, so the
@@ -211,8 +248,14 @@ static void render_status(bool full) {
     }
     oled_write_ln_P(PSTR(""), false);                                   // 14
 
-    led_t led_state = host_keyboard_led_state();                        // 15
-    oled_write_ln_P(led_state.caps_lock ? PSTR(" CAP ") : PSTR("     "), led_state.caps_lock);
+    // Caps Word state lives on the master only, so the slave shows caps lock.
+    bool caps_word = full && is_caps_word_on();                         // 15
+    bool caps_lock = host_keyboard_led_state().caps_lock;
+    if (caps_word) {
+        oled_write_ln_P(PSTR("WORD "), true);
+    } else {
+        oled_write_ln_P(caps_lock ? PSTR(" CAP ") : PSTR("     "), caps_lock);
+    }
 
     if (full) {                                                         // 16
         oled_write_ln_P(keymap_config.swap_lctl_lgui ? PSTR("MAC  ") : PSTR("WIN  "), false);
