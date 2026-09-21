@@ -58,10 +58,30 @@ somewhere else — a spare Adjust key, or `BOTH_SHIFTS_TURNS_ON_CAPS_WORD` in
 ## Per-key RGB as a layer legend
 
 Hold LOWER, RAISE or ADJUST and the animation gives way to a legend: only the
-keys that actually do something on that layer light up, in a colour per layer —
-cyan for Lower, magenta for Raise, amber for Adjust. Keys that are transparent
-(they fall through to the base layer) and unused keys stay dark, so what you
-see is exactly what the layer changes. Useful with blank keycaps.
+keys that actually do something on that layer light up. Keys that are
+transparent (they fall through to the base layer) and unused keys stay dark, so
+what you see is exactly what the layer changes. Useful with blank keycaps.
+
+Within a layer, keys are coloured by **what they do**, not where they sit:
+
+| Colour | Keys |
+|--------|------|
+| white | movement — arrows, the nav cluster, word- and line-wise motion |
+| red | destructive — Backspace, Delete, Ctrl+Backspace, `QK_BOOT`, `EE_CLR` |
+| green | clipboard, Caps Lock, and the layout / Mac-Win switches |
+| blue | the function row |
+| amber | digits |
+| layer colour | everything else — cyan on Lower, magenta on Raise, amber on Adjust |
+
+So Raise reads as white arrows and a red delete cluster floating on magenta,
+and Lower as a blue function row above amber digits. On Adjust the four
+lighting controls take the colour of the thing they change: hue magenta,
+saturation red, brightness white, speed blue.
+
+Because the rules match on keycodes rather than positions, they keep working
+when you rearrange a layer — move the arrows and they stay white, add an F-key
+anywhere and it comes up blue. Categories live in one `switch` in
+`rgb_matrix_indicators_advanced_user()`; the colours are `#define`s above it.
 
 The base layers are left alone, so your chosen animation still runs there, and
 `RM_TOGG` turns the legend off along with everything else.
@@ -123,11 +143,12 @@ all 29 RGB matrix animations. This keymap disables all but five in `config.h`
 and lands at:
 
 ```
-25092/28672 (87%, 3580 bytes free)
+25372/28672 (88%, 3300 bytes free)
 ```
 
-For reference, the RGB layer legend plus Caps Word (with its OLED readout)
-together cost 640 bytes.
+For reference: the RGB layer legend plus Caps Word (with its OLED readout)
+cost 640 bytes, and splitting the legend into per-keycode categories another
+280.
 
 Delete an `#undef ENABLE_RGB_MATRIX_*` line to get an animation back, or add
 features into the remaining 4 KB. The build prints the size every time.

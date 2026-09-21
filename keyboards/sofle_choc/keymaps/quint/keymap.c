@@ -164,6 +164,16 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 // you keep whatever animation you picked.
 //
 // QMK only calls this while the matrix is on, so RM_TOGG kills the legend too.
+
+// Categories cut across layers: a key is coloured by what it does, not by
+// where it sits, so moving a key keeps its colour and adding one needs no
+// bookkeeping here. Anything uncategorised falls back to the layer's colour.
+#define C_MOVE   110, 110, 110  // white   -- arrows, nav cluster, word motions
+#define C_DANGER 130,   0,   0  // red     -- deletes, bootloader, EEPROM wipe
+#define C_EDIT     0, 110,  40  // green   -- clipboard, caps, layout switches
+#define C_FN       0,  40, 130  // blue    -- function row
+#define C_NUM    100,  70,   0  // amber   -- digits
+
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t layer = get_highest_layer(layer_state);
     uint8_t r, g, b;
@@ -181,10 +191,72 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             if (index == NO_LED || index < led_min || index >= led_max) {
                 continue;
             }
-            if (keymap_key_to_keycode(layer, (keypos_t){col, row}) > KC_TRNS) {
-                rgb_matrix_set_color(index, r, g, b);
-            } else {
+
+            uint16_t keycode = keymap_key_to_keycode(layer, (keypos_t){col, row});
+            if (keycode <= KC_TRNS) {  // KC_NO or transparent: not part of this layer
                 rgb_matrix_set_color(index, 0, 0, 0);
+                continue;
+            }
+
+            switch (keycode) {
+                // Movement. KC_INS..KC_UP is contiguous in HID order and covers
+                // the nav cluster and all four arrows; KC_DEL sits inside it and
+                // is pulled out below.
+                case KC_INS ... KC_PGUP:
+                case KC_END ... KC_UP:
+                case KC_PRVWD ... KC_LEND:
+                    rgb_matrix_set_color(index, C_MOVE);
+                    break;
+
+                case KC_DEL:
+                case KC_BSPC:
+                case C(KC_BSPC):
+                case QK_BOOT:
+                case EE_CLR:
+                    rgb_matrix_set_color(index, C_DANGER);
+                    break;
+
+                case C(KC_Z):
+                case C(KC_X):
+                case C(KC_C):
+                case C(KC_V):
+                case KC_CAPS:
+                case KC_QWERTY:
+                case KC_COLEMAK:
+                case CG_TOGG:
+                    rgb_matrix_set_color(index, C_EDIT);
+                    break;
+
+                case KC_F1 ... KC_F12:
+                    rgb_matrix_set_color(index, C_FN);
+                    break;
+
+                case KC_1 ... KC_0:
+                case KC_GRV:
+                    rgb_matrix_set_color(index, C_NUM);
+                    break;
+
+                // On Adjust, the lighting controls show what they control.
+                case RM_HUEU:
+                case RM_HUED:
+                    rgb_matrix_set_color(index, 130, 0, 90);    // hue
+                    break;
+                case RM_SATU:
+                case RM_SATD:
+                    rgb_matrix_set_color(index, 130, 30, 30);   // saturation
+                    break;
+                case RM_VALU:
+                case RM_VALD:
+                    rgb_matrix_set_color(index, 110, 110, 110); // brightness
+                    break;
+                case RM_SPDU:
+                case RM_SPDD:
+                    rgb_matrix_set_color(index, 0, 40, 130);    // speed
+                    break;
+
+                default:
+                    rgb_matrix_set_color(index, r, g, b);
+                    break;
             }
         }
     }
