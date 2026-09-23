@@ -133,6 +133,18 @@ the real `keymap.c`, so they cannot drift from the firmware.
 ./draw.sh --reparse    # re-read keymap.c first (resets hand-made tweaks)
 ```
 
+A `pre-commit` hook redraws them for you, so the diagram in this README can
+never lag the firmware. Enable it once per clone:
+
+```sh
+git config core.hooksPath .githooks
+```
+
+It only fires when `keymap.c`, `keymap.yaml` or `draw.sh` is part of the
+commit, and it refuses a commit that changes `keymap.c` without `keymap.yaml`
+— the diagram is rendered from the yaml, so the two have to move together.
+`git commit --no-verify` skips it.
+
 `keymap.yaml` is the intermediate: `--reparse` regenerates it from the
 firmware, which discards the layer names, the tidied `QWERTY`/`COLEMAK`
 legends and the encoder footer, so re-apply those afterwards.

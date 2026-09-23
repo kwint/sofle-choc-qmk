@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Keep keymap.svg / keymap.png in step with the firmware.
+#
+# Enable in a fresh clone with:  git config core.hooksPath .githooks
+# Bypass for a one-off commit with:  git commit --no-verify
+set -euo pipefail
+
+cd "$(git rev-parse --show-toplevel)"
+
+KEYMAP=keyboards/sofle_choc/keymaps/quint/keymap.c
+staged=$(git diff --cached --name-only --diff-filter=ACM)
+
+# Nothing to do unless the keymap or its drawing input is part of this commit.
+grep -qxE "$KEYMAP|keymap\.yaml|draw\.sh" <<<"$staged" || exit 0
+
+# draw.sh renders keymap.yaml, not keymap.c -- keymap.yaml carries hand-made
+# tweaks (layer names, tidied legends, the encoder footer) that --reparse would
+# wipe, so the two are kept in step by hand. A keymap.c change without a
+# matching keymap.yaml change means the diagram would silently go stale.
+if grep -qx "$KEYMAP" <<<"$staged" && ! grep -qx 'keymap.yaml' <<<"$staged"; then
+    cat >&2 <<'MSG'
+pre-commit: keymap.c changed but keymap.yaml did not.
+
+keymap.yaml is what the diagram is drawn from. Update it to match, either
+by hand or with ./draw.sh --reparse (which discards the layer names and the
+encoder footer -- re-apply those afterwards).
+
+Commit anyway with --no-verify if the change cannot affect the diagram.
+MSG
+    exit 1
+fi
+
+command -v uvx >/dev/null || { echo "pre-commit: uvx not found; draw.sh needs it" >&2; exit 1; }
+
+echo "pre-commit: redrawing keymap.svg / keymap.png"
+./draw.sh >/dev/null
+git add keymap.svg keymap.png
