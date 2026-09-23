@@ -32,16 +32,16 @@ left                          right
 ,------.                     ,------.
 | Esc~ |  Grave Escape       |  -   |  minus / underscore
 | Tab  |                     | Bspc |
-|LShift|                     |  '   |
-|LCtrl |                     |CapsWd|
+|LCtrl |                     |  '   |
+|LShift|                     |CapsWd|
 `------'                     `------'
 ```
 
 The top-left key is `QK_GESC`: tap it for **Escape**, `Shift`+tap for **~**,
-`GUI`+tap for **`**. That frees the row below it, so Tab, Shift and Ctrl each
-move up one and Ctrl lands on the bottom row — where the MX Sofle's diagram
-puts Shift. Ctrl moved off the left thumb to make room for Hyper, so this is
-now the only left-hand Ctrl.
+`GUI`+tap for **`**. That frees the row below it, so Tab and Ctrl each move up
+one, and Shift stays on the bottom row where the build guide's diagram puts
+it. Ctrl moved off the left thumb to make room for Hyper, so the home-row
+pinky is now the only left-hand Ctrl.
 
 A bare backtick with no modifier lives on LOWER, at the left pinky of the
 number row.
@@ -95,7 +95,7 @@ next word is capitalised — `MAX_BUFFER_SIZE` — and it switches itself off at
 the first space, or after five idle seconds. The OLED shows `WORD` while it is
 armed, in the same slot that shows `CAP` for caps lock.
 
-There is no right shift as a result; shifting is the left pinky. If you want
+There is no right shift as a result; shifting is the left pinky, bottom row. If you want
 it back, swap `CW_TOGG` for `KC_RSFT` on the two base layers and move Caps Word
 somewhere else — a spare Adjust key, or `BOTH_SHIFTS_TURNS_ON_CAPS_WORD` in
 `config.h` if you would rather chord both shifts for it.
