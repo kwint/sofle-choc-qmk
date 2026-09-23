@@ -40,12 +40,33 @@ left                          right
 The top-left key is `QK_GESC`: tap it for **Escape**, `Shift`+tap for **~**,
 `GUI`+tap for **`**. That frees the row below it, so Tab, Shift and Ctrl each
 move up one and Ctrl lands on the bottom row — where the MX Sofle's diagram
-puts Shift. Ctrl is also still on the left thumb cluster; either works.
+puts Shift. Ctrl moved off the left thumb to make room for Hyper, so this is
+now the only left-hand Ctrl.
 
 A bare backtick with no modifier lives on LOWER, at the left pinky of the
 number row.
 
 The top-right key, a duplicate `` ` `` in the stock layout, is `-` / `_`.
+
+## Hyper on the left thumb
+
+The left thumb is `KC_HYPR` — Ctrl+Shift+Alt+GUI held together. It types
+nothing on its own; the point is that no application binds all four modifiers
+at once, so `Hyper`+anything is a private namespace of shortcuts that will
+never collide with your editor, browser or terminal.
+
+The bindings live in your window manager, not here. In sway or i3:
+
+```
+bindsym Ctrl+Shift+Alt+Mod4+t exec foot
+bindsym Ctrl+Shift+Alt+Mod4+b exec firefox
+```
+
+If Mod4 is awkward because your compositor already owns it, `KC_MEH`
+(Ctrl+Shift+Alt, no GUI) is the same idea without it.
+
+Hyper is immune to the `MacWin` swap: Ctrl and GUI are both in the set, so
+exchanging them changes nothing.
 
 ## Encoders
 
@@ -90,15 +111,17 @@ Within a layer, keys are coloured by **what they do**, not where they sit:
 
 | Colour | Keys |
 |--------|------|
-| white | movement — arrows, the nav cluster, word- and line-wise motion |
+| white | the four arrow keys |
+| teal | the rest of movement — the nav cluster, word- and line-wise motion |
 | red | destructive — Backspace, Delete, Ctrl+Backspace, `QK_BOOT`, `EE_CLR` |
 | green | clipboard, Caps Lock, and the layout / Mac-Win switches |
 | blue | the function row |
 | amber | digits |
 | layer colour | everything else — cyan on Lower, magenta on Raise, amber on Adjust |
 
-So Raise reads as white arrows and a red delete cluster floating on magenta,
-and Lower as a blue function row above amber digits. On Adjust the four
+So Raise reads as a white arrow cluster picked out from teal page/word
+motions, with a red delete group, all floating on magenta; and Lower as a blue
+function row above amber digits. On Adjust the four
 lighting controls take the colour of the thing they change: hue magenta,
 saturation red, brightness white, speed blue.
 
@@ -179,12 +202,13 @@ it, because the board's `keyboard.json` enables all 29 RGB matrix animations.
 This keymap disables all but five in `config.h` and lands at:
 
 ```
-25372/28672 (88%, 3300 bytes free)
+25394/28672 (88%, 3278 bytes free)
 ```
 
 For reference: the RGB layer legend plus Caps Word (with its OLED readout)
-cost 640 bytes, and splitting the legend into per-keycode categories another
-280.
+cost 640 bytes, splitting the legend into per-keycode categories another 280,
+and giving the arrows their own colour 22 more. Grave Escape and Hyper are
+free — both were already compiled in.
 
 Delete an `#undef ENABLE_RGB_MATRIX_*` line to get an animation back, or add
 features into the remaining 4 KB. The build prints the size every time.

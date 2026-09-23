@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|  Mute |    | Play  |------+------+------+------+------+------|
  * |LCtrl |   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |CapsWd|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LGUI | LAlt | LCTL |LOWER | /Space  /       \Enter \  |RAISE | RCTL | RAlt | RGUI |
+ *            | LGUI | LAlt |Hyper |LOWER | /Space  /       \Enter \  |RAISE | RCTL | RAlt | RGUI |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
   KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_MUTE,   KC_MPLY, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, CW_TOGG,
-                    KC_LGUI, KC_LALT, KC_LCTL, TL_LOWR, KC_SPC,    KC_ENT,  TL_UPPR, KC_RCTL, KC_RALT, KC_RGUI
+                    KC_LGUI, KC_LALT, KC_HYPR, TL_LOWR, KC_SPC,    KC_ENT,  TL_UPPR, KC_RCTL, KC_RALT, KC_RGUI
 ),
 
 /*
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|  Mute |    | Play  |------+------+------+------+------+------|
  * |LCtrl |   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   K  |   M  |   ,  |   .  |   /  |CapsWd|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LGUI | LAlt | LCTL |LOWER | /Space  /       \Enter \  |RAISE | RCTL | RAlt | RGUI |
+ *            | LGUI | LAlt |Hyper |LOWER | /Space  /       \Enter \  |RAISE | RCTL | RAlt | RGUI |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                        KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
   KC_LSFT, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                        KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
   KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_MUTE,   KC_MPLY, KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, CW_TOGG,
-                    KC_LGUI, KC_LALT, KC_LCTL, TL_LOWR, KC_SPC,    KC_ENT,  TL_UPPR, KC_RCTL, KC_RALT, KC_RGUI
+                    KC_LGUI, KC_LALT, KC_HYPR, TL_LOWR, KC_SPC,    KC_ENT,  TL_UPPR, KC_RCTL, KC_RALT, KC_RGUI
 ),
 
 /*
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |      |   =  |   -  |   +  |   {  |   }  |-------|    |-------|   [  |   ]  |   ;  |   :  |   \  |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LGUI | LAlt | LCTL |LOWER | /Space  /       \Enter \  |RAISE | RCTL | RAlt | RGUI |
+ *            | LGUI | LAlt |Hyper |LOWER | /Space  /       \Enter \  |RAISE | RCTL | RAlt | RGUI |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |      | Undo |  Cut | Copy | Paste|      |-------|    |-------|      | Home |      |  End |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LGUI | LAlt | LCTL |LOWER | /Space  /       \Enter \  |RAISE | RCTL | RAlt | RGUI |
+ *            | LGUI | LAlt |Hyper |LOWER | /Space  /       \Enter \  |RAISE | RCTL | RAlt | RGUI |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |      | Hue- | Sat- | Val- | Spd- |      |-------|    |-------|      | Prev | Play | Next |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LGUI | LAlt | LCTL |LOWER | /Space  /       \Enter \  |RAISE | RCTL | RAlt | RGUI |
+ *            | LGUI | LAlt |Hyper |LOWER | /Space  /       \Enter \  |RAISE | RCTL | RAlt | RGUI |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
@@ -168,7 +168,8 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 // Categories cut across layers: a key is coloured by what it does, not by
 // where it sits, so moving a key keeps its colour and adding one needs no
 // bookkeeping here. Anything uncategorised falls back to the layer's colour.
-#define C_MOVE   110, 110, 110  // white   -- arrows, nav cluster, word motions
+#define C_ARROW  110, 110, 110  // white   -- the four arrow keys
+#define C_MOVE     0, 110,  90  // teal    -- the rest of the nav cluster
 #define C_DANGER 130,   0,   0  // red     -- deletes, bootloader, EEPROM wipe
 #define C_EDIT     0, 110,  40  // green   -- clipboard, caps, layout switches
 #define C_FN       0,  40, 130  // blue    -- function row
@@ -199,11 +200,17 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             }
 
             switch (keycode) {
-                // Movement. KC_INS..KC_UP is contiguous in HID order and covers
-                // the nav cluster and all four arrows; KC_DEL sits inside it and
-                // is pulled out below.
+                // The four arrows, picked out from everything else that moves
+                // the cursor. KC_RGHT..KC_UP is contiguous in HID order.
+                case KC_RGHT ... KC_UP:
+                    rgb_matrix_set_color(index, C_ARROW);
+                    break;
+
+                // The rest of the nav cluster and the word/line motions.
+                // KC_INS..KC_PGDN is contiguous too, but KC_DEL sits inside it
+                // and is pulled out below, so it takes two ranges.
                 case KC_INS ... KC_PGUP:
-                case KC_END ... KC_UP:
+                case KC_END ... KC_PGDN:
                 case KC_PRVWD ... KC_LEND:
                     rgb_matrix_set_color(index, C_MOVE);
                     break;
