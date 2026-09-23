@@ -14,7 +14,7 @@ The five layers from the build guide's default layout:
 
 | Layer | Reached by | Contents |
 |-------|-----------|----------|
-| QWERTY | default | letters, number row, `Mute` / `Play` on the encoder pushes, Caps Word on the right pinky |
+| QWERTY | default | letters, number row, Grave Escape and `-` on the outer columns, `Mute` / `Play` on the encoder pushes, Caps Word on the right pinky |
 | COLEMAK | `Colmak` on Adjust | alternate base layout, remembered across reboots |
 | LOWER | left thumb | F1–F12, numbers, symbols, brackets |
 | RAISE | right thumb | arrows, Home/End, word-wise motion, Ins/PrtSc/Menu, clipboard |
@@ -22,6 +22,30 @@ The five layers from the build guide's default layout:
 
 `MacWin` on the Adjust layer swaps Ctrl and GUI. The clipboard keys and word
 motions follow that swap automatically.
+
+## Pinky columns
+
+The outer columns differ from the build guide's diagram:
+
+```
+left                          right
+,------.                     ,------.
+| Esc~ |  Grave Escape       |  -   |  minus / underscore
+| Tab  |                     | Bspc |
+|LShift|                     |  '   |
+|LCtrl |                     |CapsWd|
+`------'                     `------'
+```
+
+The top-left key is `QK_GESC`: tap it for **Escape**, `Shift`+tap for **~**,
+`GUI`+tap for **`**. That frees the row below it, so Tab, Shift and Ctrl each
+move up one and Ctrl lands on the bottom row — where the MX Sofle's diagram
+puts Shift. Ctrl is also still on the left thumb cluster; either works.
+
+A bare backtick with no modifier lives on LOWER, at the left pinky of the
+number row.
+
+The top-right key, a duplicate `` ` `` in the stock layout, is `-` / `_`.
 
 ## Encoders
 
@@ -132,15 +156,15 @@ Flash the **same** firmware to both halves, one at a time:
 4. Unplug, reconnect TRRS, plug USB into the **left** half.
 
 Coming from other firmware (an MX Sofle build, say), clear the stored settings
-once afterwards: hold LOWER + RAISE and press `EE_CLR` (the `5` position on the
-top row of the left half). Otherwise stale RGB and layout state can persist.
+once afterwards: hold LOWER + RAISE and press `EE_CLR` (the `T` position on the
+left half). Otherwise stale RGB and layout state can persist.
 
 ## Flash budget
 
-The ATmega32U4 s. Mainline's stock `sofle_chocxxxxxxxxxxxxxxxxxxxxxxxxxxcc
-layer, a logo on the OLED — already uses 91% of it, because the board enables
-all 29 RGB matrix animations. This keymap disables all but five in `config.h`
-and lands at:
+The ATmega32U4 has 28672 bytes of usable flash. Mainline's stock
+`sofle_choc:default` — one layer, a logo on the OLED — already uses 91% of
+it, because the board's `keyboard.json` enables all 29 RGB matrix animations.
+This keymap disables all but five in `config.h` and lands at:
 
 ```
 25372/28672 (88%, 3300 bytes free)
